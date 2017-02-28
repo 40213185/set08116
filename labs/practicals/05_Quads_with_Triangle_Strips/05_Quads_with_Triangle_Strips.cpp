@@ -5,53 +5,28 @@ using namespace std;
 using namespace graphics_framework;
 using namespace glm;
 
-geometry geom1;
-geometry geom2;
+geometry geom;
 effect eff;
 target_camera cam;
 
 bool load_content() {
   // *********************************
   // Set geometry type to triangle strip
-	geom1.set_type(GL_TRIANGLE_STRIP);
+
   // *********************************
   // Positions
-  vector<vec3> positions1{
+  vector<vec3> positions{
       // *********************************
       // Add the position data for two triangles here
-	  //shape 1
-	  vec3(-1.0f, -1.0f, 0.0f),
-	  vec3(1.0f, -1.0f, 0.0f), 
-	  vec3(-1.0f, 1.0f, 0.0f),
-	  vec3(1.0f, 1.0f, 0.0f),
+
       // *********************************
   };
-  geom2.set_type(GL_TRIANGLE_STRIP);
-  // *********************************
-  // Positions
-  vector<vec3> positions2{
-	  // *********************************
-	  // Add the position data for two triangles here
-	  vec3(-1.0f, 2.0f, 0.0f),
-	  vec3(1.0f, 2.0f, 0.0f),
-	  vec3(-1.0f, 4.0f, 0.0f),
-	  vec3(1.0f, 4.0f, 0.0f)
-	  // *********************************
-  };
-
   // Colours
-  vector<vec4> colours{
-		vec4(1.0f, 0.0f, 0.0f, 1.0f), 
-		vec4(1.0f, 0.0f, 0.0f, 1.0f), 
-		vec4(1.0f, 0.0f, 0.0f, 1.0f),
-        vec4(1.0f, 0.0f, 0.0f, 1.0f)
-  };
+  vector<vec4> colours{vec4(1.0f, 0.0f, 0.0f, 1.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f),
+                       vec4(1.0f, 0.0f, 0.0f, 1.0f)};
   // Add to the geometry
-  geom1.add_buffer(positions1, BUFFER_INDEXES::POSITION_BUFFER);
-  geom1.add_buffer(colours, BUFFER_INDEXES::COLOUR_BUFFER);
-
-  geom2.add_buffer(positions2, BUFFER_INDEXES::POSITION_BUFFER);
-  geom2.add_buffer(colours, BUFFER_INDEXES::COLOUR_BUFFER);
+  geom.add_buffer(positions, BUFFER_INDEXES::POSITION_BUFFER);
+  geom.add_buffer(colours, BUFFER_INDEXES::COLOUR_BUFFER);
 
   // Load in shaders
   eff.add_shader("shaders/basic.vert", GL_VERTEX_SHADER);
@@ -84,8 +59,7 @@ bool render() {
   // Set MVP matrix uniform
   glUniformMatrix4fv(eff.get_uniform_location("MVP"), 1, GL_FALSE, value_ptr(MVP));
   // Render geometry
-  renderer::render(geom1);
-  renderer::render(geom2);
+  renderer::render(geom);
   return true;
 }
 
