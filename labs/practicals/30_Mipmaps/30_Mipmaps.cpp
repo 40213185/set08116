@@ -29,9 +29,11 @@ bool load_content() {
   // Create three mesh objects - reuse geometry
   for (auto &m : meshes) {
     // *********************************
-
+		mesh mesh1 = mesh(geom);
+		mesh mesh2 = mesh(geom);
+		mesh mesh3 = mesh(geom);
     // Scale each mesh by 10
-
+		glScalef(10.0f, 10.0f, 0.0f);
     // *********************************
   }
 
@@ -93,11 +95,11 @@ bool render() {
 
     // *********************************
     // Bind correct texture to renderer
-
+	renderer::bind(texs[1], 0);
     // Set the texture value for the shader here
-
+	glUniform1i(eff.get_uniform_location("texs"), 0);
     // Render the mesh
-
+	renderer::render(meshes[0]);
     // *********************************
   }
 
